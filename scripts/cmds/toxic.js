@@ -40,7 +40,7 @@ const gcName = (await threadsData.get(event.threadID)).threadName;
       query: question,
       context: { history: getUserHistory(userID) },
       event,
-      type: "toxic",
+      type: "heaven",
       opts: {
         event: { thread: { name: gcName }, sender: { name: userName, uid: userID } },
         key: GROQ_API_KEY,
