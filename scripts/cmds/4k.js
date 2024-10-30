@@ -11,7 +11,7 @@ const d = {
 
 module.exports = {
   config: {
-    name: "remini",
+    name: "4k",
     aliases: ["upscale"],
     version: "1.1",
     author: "ArYAN",
