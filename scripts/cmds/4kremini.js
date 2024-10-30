@@ -2,7 +2,7 @@ const axios = require("axios");
 
 module.exports = {
   config: {
-    name: "4k",
+    name: "remini",
     aliases: ["hd", "upscale"],
     version: "1.1",
     role: 0,
