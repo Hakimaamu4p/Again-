@@ -3,7 +3,6 @@ const axios = require("axios");
 const path = require("path");
 const { getPrefix } = global.utils;
 const { commands, aliases } = global.GoatBot;
-const doNotDelete = "[ 🐐 | Heaven GoatBot V2 ]";
 
 module.exports = {
 	config: {
@@ -26,36 +25,36 @@ module.exports = {
 	},
 
 	onStart: async function ({ message, args, event, threadsData, role }) {
-	const { threadID } = event;
-	const threadData = await threadsData.get(threadID);
-	const prefix = getPrefix(threadID);
+		const { threadID } = event;
+		const threadData = await threadsData.get(threadID);
+		const prefix = getPrefix(threadID);
 
-	if (args.length === 0) {
+		if (args.length === 0) {
 			const categories = {};
 			let msg = "";
 
 			msg += `╔══════════════╗\n     🧘‍♀️HEAVEN CMD🧘‍♀️\n╚══════════════╝`;
 
 			for (const [name, value] of commands) {
-					if (value.config.role > 1 && role < value.config.role) continue;
+				if (value.config.role > 1 && role < value.config.role) continue;
 
-					const category = value.config.category || "Uncategorized";
-					categories[category] = categories[category] || { commands: [] };
-					categories[category].commands.push(name);
+				const category = value.config.category || "Uncategorized";
+				categories[category] = categories[category] || { commands: [] };
+				categories[category].commands.push(name);
 			}
-8
+
 			Object.keys(categories).forEach(category => {
-					if (category !== "info") {
-							msg += `\n╭────────────⭓🧘‍♀️\n│『 ${category.toUpperCase()} 』`;
+				if (category !== "info") {
+					msg += `\n╭────────────⭓🧘‍♀️\n│『 ${category.toUpperCase()} 』`;
 
-							const names = categories[category].commands.sort();
-							for (let i = 0; i < names.length; i += 1) {
-									const cmds = names.slice(i, i + 1).map(item => `│🧘‍♀️${item}🧘‍♀️`);
-									msg += `\n${cmds.join(" ".repeat(Math.max(0, 5 - cmds.join("").length)))}`;
-							}
-
-							msg += `\n╰────────⭓🧘‍♀️`;
+					const names = categories[category].commands.sort();
+					for (let i = 0; i < names.length; i += 1) {
+						const cmds = names.slice(i, i + 1).map(item => `│🧘‍♀️${item}🧘‍♀️`);
+						msg += `\n${cmds.join(" ".repeat(Math.max(0, 5 - cmds.join("").length)))}`;
 					}
+
+					msg += `\n╰────────⭓🧘‍♀️`;
+				}
 			});
 
 			const totalCommands = commands.size;
@@ -63,20 +62,10 @@ module.exports = {
 			msg += `𝗧𝘆𝗽𝗲 ${prefix} 𝗵𝗲𝗹𝗽 𝗰𝗺𝗱𝗡𝗮𝗺𝗲 𝘁𝗼 𝘃𝗶𝗲𝘄 𝘁𝗵𝗲 𝗱𝗲𝘁𝗮𝗶𝗹𝘀 𝗼𝗳 𝘁𝗵𝗮𝘁 𝗰𝗼𝗺𝗺𝗮𝗻𝗱\n`;
 			msg += `HEAVEN BOT BESTBOT 🧘‍♀️`;
 
-
-			const helpListImages = [
-				"https://i.imgur.com/8d6WbRJ.gif"
-			];
-
-
-			const helpListImage = helpListImages[Math.floor(Math.random() * helpListImages.length)];
-
-
 			await message.reply({
-					body: msg,
-					attachment: await global.utils.getStreamFromURL(helpListImage)
+				body: msg,
 			});
-	} else {
+		} else {
 			const commandName = args[0].toLowerCase();
 			const command = commands.get(commandName) || commands.get(aliases.get(commandName));
 
@@ -88,7 +77,6 @@ module.exports = {
 				const author = configCommand.author || "Unknown";
 
 				const longDescription = configCommand.longDescription ? configCommand.longDescription.en || "No description" : "No description";
-
 				const guideBody = configCommand.guide?.en || "No guide available.";
 				const usage = guideBody.replace(/{p}/g, prefix).replace(/{n}/g, configCommand.name);
 
@@ -126,4 +114,4 @@ function roleTextToString(roleText) {
 		default:
 			return "Unknown role";
 	}
-      }
+	}
