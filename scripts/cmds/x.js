@@ -27,7 +27,7 @@ module.exports = {
 const sendMessage = async (message, question, event, config) => {
   try {
     const encodedQuestion = encodeURIComponent(question);
-    const response = await axios.get(`http://45.90.12.34:5047/novaai?prompt=${encodedQuestion}`);
+    const response = await axios.get(`http://45.90.12.34:5047/novaai?prompt=${encodedQuestion}&id=${event.senderID}`);
 
     if (response.status !== 200) throw new Error('API error');
 
